@@ -1,0 +1,48 @@
+# Personal Information Manager
+# My first Python project
+
+# Welcome message
+print("=" * 40)
+print("    PERSONAL INFORMATION MANAGER")
+print("=" * 40)
+
+# Store personal information
+name = "Kajal"
+age = 21
+city = "Bhopal"
+hobby = "Singing"
+
+# Get user input
+print("\nPlease tell me about yourself:")
+
+favorite_food = input("What is your favorite food? ")
+
+while favorite_food.strip() == "":
+    print("Please enter a valid food!")
+    favorite_food = input("What is your favorite food? ")
+
+favorite_color = input("What is your favorite color? ")
+
+while favorite_color.strip() == "":
+    print("Please enter a valid color!")
+    favorite_color = input("What is your favorite color? ")
+
+# Calculate age in months
+age_in_months = age * 12
+
+# Display information
+print("\n" + "=" * 40)
+print("        YOUR INFORMATION")
+print("=" * 40)
+
+print(f"Name: {name}")
+print(f"Age: {age} years ({age_in_months} months)")
+print(f"City: {city}")
+print(f"Hobby: {hobby}")
+print(f"Favorite Food: {favorite_food}")
+print(f"Favorite Color: {favorite_color}")
+
+# Goodbye message
+print("=" * 40)
+print("Thanks for using this program!")
+print("=" * 40)
