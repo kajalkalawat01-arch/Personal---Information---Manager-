@@ -1,0 +1,114 @@
+# Student Grade Calculator
+# Week 2 Project - The Developers Arena
+
+def calculate_grade(average):
+    if average >= 90:
+        return "A", "Excellent!"
+    elif average >= 80:
+        return "B", "Very Good!"
+    elif average >= 70:
+        return "C", "Good"
+    elif average >= 60:
+        return "D", "Needs Improvement"
+    else:
+        return "F", "Please work harder"
+
+
+def get_marks(subject):
+    while True:
+        try:
+            marks = float(input(f"Enter {subject} marks (0-100): "))
+            if 0 <= marks <= 100:
+                return marks
+            print("Please enter marks between 0 and 100.")
+        except ValueError:
+            print("Invalid input! Enter a number.")
+
+
+def main():
+    print("=" * 45)
+    print("       STUDENT GRADE CALCULATOR")
+    print("=" * 45)
+
+    while True:
+        try:
+            number = int(input("Enter number of students: "))
+            if number > 0:
+                break
+            print("Enter a positive number.")
+        except ValueError:
+            print("Please enter a whole number.")
+
+    students = []
+
+    for i in range(number):
+        print(f"\n--- Student {i + 1} ---")
+
+        name = input("Enter student name: ").strip()
+        while not name:
+            print("Name cannot be empty.")
+            name = input("Enter student name: ").strip()
+
+        math = get_marks("Math")
+        science = get_marks("Science")
+        english = get_marks("English")
+
+        average = (math + science + english) / 3
+        grade, comment = calculate_grade(average)
+
+        students.append({
+            "name": name,
+            "average": average,
+            "grade": grade,
+            "comment": comment
+        })
+
+    print("\n" + "=" * 65)
+    print("RESULTS SUMMARY")
+    print("=" * 65)
+    print(f"{'Name':<20} {'Average':>8} {'Grade':>7}  Comment")
+    print("-" * 65)
+
+    for student in students:
+        print(
+            f"{student['name']:<20} "
+            f"{student['average']:>8.1f} "
+            f"{student['grade']:>7}  "
+            f"{student['comment']}"
+        )
+
+    averages = [student["average"] for student in students]
+    highest = max(students, key=lambda s: s["average"])
+    lowest = min(students, key=lambda s: s["average"])
+
+    print("\nCLASS STATISTICS")
+    print("-" * 30)
+    print(f"Total Students: {len(students)}")
+    print(f"Class Average: {sum(averages) / len(averages):.1f}")
+    print(f"Highest Average: {highest['average']:.1f} ({highest['name']})")
+    print(f"Lowest Average: {lowest['average']:.1f} ({lowest['name']})")
+
+    search_name = input("\nSearch student by name (or press Enter to skip): ").strip()
+    if search_name:
+        found = False
+        for student in students:
+            if student["name"].lower() == search_name.lower():
+                print("Student found:", student)
+                found = True
+        if not found:
+            print("Student not found.")
+
+    with open("results_sample.txt", "w", encoding="utf-8") as file:
+        file.write("STUDENT GRADE CALCULATOR RESULTS\n")
+        for student in students:
+            file.write(
+                f"{student['name']} | Average: {student['average']:.1f} "
+                f"| Grade: {student['grade']} | {student['comment']}\n"
+            )
+
+    print("\nResults saved to results_sample.txt")
+    print("Thank you for using the Grade Calculator!")
+
+
+if __name__ == "__main__":
+    main()
